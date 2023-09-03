@@ -261,12 +261,12 @@ The name of the server the account is used on can be identified in the second pa
 
 A server account is created with a long, complex password that doesn't expire. The account is granted a special Directory Synchronization Accounts role that has permissions to perform only directory synchronization tasks. This special built-in role can't be granted outside of the Azure AD Connect wizard. The Azure portal shows this account with the User role.
 
-Azure AD has a limit of 20 sync service accounts. To get the list of existing Azure AD service accounts in your Azure AD instance, run the following Azure AD PowerShell cmdlet: `Get-AzureADDirectoryRole | where {$_.DisplayName -eq "Directory Synchronization Accounts"} | Get-AzureADDirectoryRoleMember`
+Azure AD has a limit of 20 sync service accounts. To get the list of existing Azure AD service accounts in your Azure AD instance, run the following Microsoft Graph PowerShell cmdlet: `Get-MgDirectoryRoleMemberAsUser -DirectoryRoleId (Get-MgDirectoryRole | where {$_.DisplayName -eq "Directory Synchronization Accounts"}).Id`
 
-To remove unused Azure AD service accounts, run the following Azure AD PowerShell cmdlet: `Remove-AzureADUser -ObjectId <ObjectId-of-the-account-you-wish-to-remove>`
+To remove unused Azure AD service accounts, run the following Microsoft Graph PowerShell cmdlet: `Remove-MgUser -UserId <ObjectId-of-the-account-you-wish-to-remove>`
 
 > [!NOTE]
-> Before you can use these PowerShell commands, you must install the [Azure Active Directory PowerShell for Graph module](/powershell/azure/active-directory/install-adv2#installing-the-azure-ad-module) and connect to your instance of Azure AD by using [Connect-AzureAD](/powershell/module/azuread/connect-azuread).
+> Before you can use these PowerShell commands, you must install the [Microsoft Graph PowerShell module](/graph/sdks/sdk-installation#install-the-microsoft-graph-powershell-sdk) and connect to your instance of Azure AD by using [Connect-MgGraph](/powershell/microsoftgraph/authentication-commands#using-connect-mggraph) with appropriate scopes.
 
 For more information about how to manage or reset the password for the Azure AD Connect account, see [Manage the Azure AD Connect account](how-to-connect-azureadaccount.md).
 
